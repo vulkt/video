@@ -139,12 +139,13 @@ header {
     text-align: center;
 }
 .split-right img {
-    max-width: 100%;
+    max-block-size: 180px;
     height: auto;
 }
 
 .split-right img:nth-child(2) {
-    display: none;
+            display: inline-block; /* Make the second image visible */
+            width: 100%; /* Ensure it takes the full width */
 }
 
 </style>
@@ -207,6 +208,8 @@ header {
         <img src="imgs/split_slide_image1.jpg" alt="Split Slide Image 1">
         <img src="imgs/split_slide_image2.jpg" alt="Split Slide Image 2" style="display: none;">
     </div>
+
+    
     
   </div>
 
