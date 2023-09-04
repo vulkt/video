@@ -410,6 +410,25 @@ header {
     // Call the function to start the slideshow
     changeImages();
 
+
+    const searchInput = document.getElementById('search');
+    const productContainers = document.querySelectorAll('.product');
+
+    searchInput.addEventListener('input', filterProducts);
+
+    function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        productContainers.forEach(product => {
+            const productName = product.querySelector('h2').textContent.toLowerCase();
+            if (productName.includes(searchTerm)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+     
 </script>
 
 <!----------------- script ends here -------------------->
