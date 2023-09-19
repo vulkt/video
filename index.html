@@ -36,12 +36,20 @@ header {
   margin: 20px 0;
 }
 .product {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  width: calc(30% - 20px); /* Adjust width and account for margins */
-  margin: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    width: calc(30% - 20px); /* Adjust width and account for margins */
+    margin: 10px;
+    overflow: hidden; /* Hide overflow content */
 }
+
+.product h2 {
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
+}
+
 .product-container {
   display: flex;
   flex-wrap: wrap;
@@ -188,7 +196,7 @@ header {
 
       <h1>Simple Amazon</h1>
 
-      <a href="https://vulkt.github.io/video/">
+      <a href="right_logo_link.html">
           <img src="logo-right.png" alt="Right Logo">
       </a>
 
