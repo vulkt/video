@@ -1,479 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simple Amazon</title>
-
-<!----------------- style begens here -------------------->
-
-<style>
-     body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-header {
-            background-color: #232f3e;
-            color: white;
-            padding: 5px;
-            text-align: center;
-            position: fixed; /* Fixed position to keep the header at the top */
-            width: 100%; /* Make the header take the full width */
-            top: 0; /* Position at the top of the viewport */
-            z-index: 1; /* Ensure it's above other content */
-        }
-.container {
-  max-width: 800px; /* Set a maximum width */
-  margin: 0 auto; /* Center the container on the page */
-  padding: 20px;
-  margin-top: 10px; /* Add margin to push content below the fixed header */
-
-}
-.product-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-.product {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    width: calc(30% - 20px); /* Adjust width and account for margins */
-    margin: 10px;
-    overflow: hidden; /* Hide overflow content */
-}
-
-.product h2 {
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
-}
-
-.product-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly; /* Center products horizontally */
-  align-items: center; /* Center products vertically */
-  margin: 20px 0;
-}
-.cart {
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-}
-.category-container {
-  text-align: center;
-  margin-top: 150px;
-  
-}
-.category-button {
-  background-color: #f0c040;
-  border: none;
-  padding: 5px 10px;
-  color: white;
-  cursor: pointer;
-}
-
-.product img {
-  max-width: 100%;
-  height: auto;
-  width: auto;
-  margin-bottom: 10px; /* Add some space below the image */
-}
-
-.cart-item-image {
-  max-width: 50px; /* Adjust the width as needed */
-  height: auto;
-}
-
-.product a {
-    text-decoration: none;
-
-    font-size: small;
-
-    color: black;
-
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Distribute space evenly between the logos */
-    padding: 10px; /* Add padding to space out the logos */
-    background-color: #232f3e; /* Match the header background color */
-}
-
-.logo-container img {
-    max-width: 50px;
-    height: auto;
-}
-
-.logo-container img:first-child {
-    margin-right: 10px; /* Add spacing to the right of the left logo */
-}
-
-.logo-container img:last-child {
-    margin-left: 10px; /* Add spacing to the left of the right logo */
-}
-
-.logo-container-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Push the logo to the right */
-    
-}
-
-.logo-container-right img {
-    max-width: 50px; /* Adjust the width as needed */
-    height: auto;
-    
-}
-
-.split-slide {
-    display: flex;
-    justify-content: space-between;
-    background-color: #f0f0f0;
-    padding: 20px;
-    margin-top: 20px; /* Adjust margin-top as needed */
-}
-
-.split-left {
-    flex: 1;
-    padding: 20px;
-    text-align: center;
-}
-
-.split-right {
-    flex: 1;
-    padding: 20px;
-    text-align: center;
-}
-.split-right img {
-    max-block-size: 180px;
-    height: auto;
-}
-
-.split-right img:nth-child(2) {
-            display: inline-block; /* Make the second image visible */
-            width: 100%; /* Ensure it takes the full width */
-}
-
-
-/* Add this style to your existing CSS */
-#search-button {
-    background-color: #f0c040;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-/* Adjust the spacing between the search input and button */
-#search {
-    margin-right: 10px;
-}
-
-@media (max-width: 768px) {
-            .product h2 {
-                font-size: small; /* You can adjust the font size as needed */
-            }
-        }
-
-
-
-</style>
-
-        <!----------------- style ends here -------------------->
-
-</head>
-
-     <!----------------- body begens here -------------------->
-
-<body>
-<header>
-
-     <!----------------- header begens here -------------------->
-     
-     <div class="logo-container">
-      <a href="https://vulkt.github.io/video/">
-          <img src="logo-left.png" alt="Left Logo">
-      </a>
-
-      <h1>Simple Amazon</h1>
-
-      <a href="right_logo_link.html">
-          <img src="logo-right.png" alt="Right Logo">
-      </a>
-
-      
-
-  </div>
-  
-  <input type="text" id="search" placeholder="Search products...">
-<button id="search-button">Search</button>
-
- 
-</header>
-
- <!----------------- header ends here -------------------->
-
-
- <!----------------- category begens here -------------------->
-
-
-
-<div class="category-container">
-    <button class="category-button" data-category="all">All Products</button>
-    <button class="category-button" data-category="electronics">Electronics</button>
-    <button class="category-button" data-category="clothing">Clothing</button>
-    <button class="category-button" data-category="books">Books</button>
-</div>
-
-
-    <!----------------- category ends here -------------------->
-
-    <!----------------- split begens here -------------------->
-
-    <div class="split-slide">
-      <div class="split-left">
-          <!-- Left side content of the split slide goes here -->
-          <h2>Welcome to Simple Amazon</h2>
-          <p>Discover a wide range of products for all your needs.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Improve - Video Enhancement</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#8A2BE2", secondary: "#E6E6FA" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body { font-family: 'Poppins', sans-serif; }
+      input:focus { outline: none; border-color: #8A2BE2; }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen">
+    <header class="w-full bg-white shadow-sm sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-4 flex justify-center items-center">
+        <a href="#" class="text-3xl font-['Pacifico'] text-primary">Improve</a>
       </div>
-      <div class="split-right">
-        <img src="imgs/split_slide_image1.jpg" alt="Split Slide Image 1">
-        <img src="imgs/split_slide_image2.jpg" alt="Split Slide Image 2" style="display: none;">
-    </div>
-
-    
-    
-  </div>
-
-  <!----------------- split ends here -------------------->
-
-    <!----------------- products begens here -------------------->
-
-<div class="container">
-    <div class="product-container">
-
-    <div class="product">
-
-        <a href="https://vulkt.github.io/productpage/">
-
-          <img src="imgs/product1.jpg" alt="Product 1">
-        <h2>BasketBall</h2>
-        <p>Price: $10</p>
-        </a>
-        <button class="add-to-cart" data-price="10" data-name="Product 1">Add to Cart</button>
-</div>
-
-
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product2.jpg" alt="Product 2">
-        <h2>Shirt</h2>
-        <p>Price: $20</p>
-        </a>
-        <button class="add-to-cart" data-price="20">Add to Cart</button>
-    </div>
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product3.jpg" alt="Product 3">
-        <h2>Sunglasses</h2>
-        <p>Price: $15</p>
-        </a>
-        <button class="add-to-cart" data-price="15">Add to Cart</button>
-    </div>
-
-
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product4.jpg" alt="Product 4">
-        <h2>Watch</h2>
-        <p>Price: $25</p>
-        </a>
-        <button class="add-to-cart" data-price="25">Add to Cart</button>
-    </div>
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product5.jpg" alt="Product 5">
-        <h2>Perfume</h2>
-        <p>Price: $30</p>
-        </a>
-        <button class="add-to-cart" data-price="30">Add to Cart</button>
-    </div>
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product6.jpg" alt="Product 6">
-        <h2>Ring</h2>
-        <p>Price: $18</p>
-        </a>
-        <button class="add-to-cart" data-price="18">Add to Cart</button>
-    </div>
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product7.jpg" alt="Product 7">
-        <h2>Hair Brush</h2>
-        <p>Price: $22</p>
-        </a>
-        <button class="add-to-cart" data-price="22">Add to Cart</button>
-    </div>
-    <div class="product">
-        <a href="https://vulkt.github.io/productpage/">
-        <img src="imgs/product8.jpg" alt="Product 8" >
-        <h2>FootBall</h2>
-        <p>Price: $28</p>
-        </a>
-        <button class="add-to-cart" data-price="28">Add to Cart</button>
-    </div>
-    </div>
-    <!----------------- products ends here -------------------->
-
-    <!----------------- cart begens here -------------------->
-
-    <div class="cart">
-        <h2>Shopping Cart</h2>
-        <ul id="cart-items" style="list-style-type: none;">
-        <!-- Cart items will be displayed here -->
-        </ul>
-        <p>Total: $<span id="cart-total">0</span></p>
-        <button id="checkout">Checkout</button>
-        <button id="reset-cart">Reset Cart</button>
-    </div>
-
-     <!----------------- cart ends here -------------------->
-
-
-     <!----------------- script begens here -------------------->
-
-<script>
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    const cartItemsList = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const resetCartButton = document.getElementById('reset-cart');
-    let total = parseFloat(localStorage.getItem('cartTotal')) || 0;
-
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    storedCartItems.forEach(item => {
-    const cartItem = document.createElement('li');
-    cartItem.innerHTML = `
-        <div class="cart-item">
-        <img class="cart-item-image" src="${item.image}" alt="${item.name}">
-        <div>
-            <p>${item.name} - $${item.price.toFixed(2)}</p>
-            <button class="remove-from-cart" data-price="${item.price}">Remove</button>
+    </header>
+    <section class="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Enhance Your Videos with Professional VoiceOver
+          </h1>
+          <p class="text-xl text-gray-600 mb-8">
+            Transform your product videos with professional voiceovers and boost
+            engagement.
+          </p>
+          <a
+            href="#contact"
+            class="bg-primary text-white px-8 py-3 !rounded-button whitespace-nowrap hover:bg-opacity-90 inline-block"
+            >Get Started</a
+          >
         </div>
+      </div>
+    </section>
+    <section id="services" class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white p-8 rounded shadow-lg">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4"
+            >
+              <i class="ri-mic-line ri-xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Professional VoiceOver</h3>
+            <p class="text-gray-600">
+              Add professional voiceovers to your videos in multiple languages.
+            </p>
+          </div>
+          <div class="bg-white p-8 rounded shadow-lg">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4"
+            >
+              <i class="ri-movie-line ri-xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Video Enhancement</h3>
+            <p class="text-gray-600">
+              Improve video quality with professional editing and effects.
+            </p>
+          </div>
         </div>
-    `;
-    cartItemsList.appendChild(cartItem);
-    });
-
-    addToCartButtons.forEach(button => {
-    button.addEventListener('click', addToCart);
-    });
-
-    resetCartButton.addEventListener('click', resetCart);
-
-    function addToCart(e) {
-    const price = parseFloat(e.target.getAttribute('data-price'));
-    total += price;
-    cartTotal.textContent = total.toFixed(2);
-
-    const productName = e.target.previousElementSibling.textContent;
-    const productImage = e.target.closest('.product').querySelector('img').src;
-
-    const cartItem = document.createElement('li');
-    cartItem.style.listStyleType = 'none'; // Remove bullet points
-    cartItem.innerHTML = `
-        <div class="cart-item">
-        <img class="cart-item-image" src="${productImage}" alt="${productName}">
-        <div>
-            <p>${productName} - $${price.toFixed(2)}</p>
-            <button class="remove-from-cart" data-price="${price}">Remove</button>
+      </div>
+    </section>
+    <section id="contact" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Contact Us</h2>
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="bg-white p-8 rounded shadow-lg">
+            <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full"
+                >
+                  <i class="ri-instagram-line text-primary"></i>
+                </div>
+                <div>
+                  <p class="font-medium">Instagram</p>
+                  <a
+                    href="https://instagram.com/improve.all"
+                    class="text-primary hover:underline"
+                    >@improve.all</a
+                  >
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full"
+                >
+                  <i class="ri-wechat-fill text-primary"></i>
+                </div>
+                <div>
+                  <p class="font-medium">WeChat</p>
+                  <p class="text-gray-600">improve_all</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full"
+                >
+                  <i class="ri-mail-line text-primary"></i>
+                </div>
+                <div>
+                  <p class="font-medium">Email</p>
+                  <a
+                    href="mailto:contact@improve.com"
+                    class="text-primary hover:underline"
+                    >contact@improve.com</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-8 rounded shadow-lg">
+            <form>
+              <div class="mb-6">
+                <label class="block text-gray-700 mb-2">Name</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border rounded"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label class="block text-gray-700 mb-2">Email</label>
+                <input
+                  type="email"
+                  class="w-full px-4 py-2 border rounded"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label class="block text-gray-700 mb-2">Message</label>
+                <textarea
+                  class="w-full px-4 py-2 border rounded"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-primary text-white py-2 !rounded-button hover:bg-opacity-90"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
         </div>
-        </div>
-    `;
-    cartItemsList.appendChild(cartItem);
-
-    const removeButtons = cartItemsList.querySelectorAll('.remove-from-cart');
-    removeButtons.forEach(button => {
-        button.addEventListener('click', removeFromCart);
-    });
-
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    cartItems.push({ name: productName, price, image: productImage });
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    localStorage.setItem('cartTotal', total.toFixed(2));
-}
-
-    function removeFromCart(e) {
-    const price = parseFloat(e.target.getAttribute('data-price'));
-    total -= price;
-    cartTotal.textContent = total.toFixed(2);
-
-    const cartItem = e.target.closest('.cart-item');
-    cartItem.remove();
-
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const productName = cartItem.querySelector('.cart-item-image').alt;
-    const updatedCartItems = cartItems.filter(item => item.name !== productName);
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-    localStorage.setItem('cartTotal', total.toFixed(2));
-    }
-
-    function resetCart() {
-    total = 0;
-    cartTotal.textContent = '0.00';
-    cartItemsList.innerHTML = ''; // Remove all cart items
-    localStorage.removeItem('cartItems');
-    localStorage.removeItem('cartTotal');
-    }
-
-
-    /* split here */
-
-    function changeImages() {
-        const images = document.querySelectorAll('.split-right img');
-        let visibleIndex = 0;
-
-        setInterval(() => {
-            images[visibleIndex].style.display = 'none';
-            visibleIndex = (visibleIndex + 1) % images.length;
-            images[visibleIndex].style.display = 'block';
-        }, 10000); // Change images every 10 seconds (10000 milliseconds)
-    }
-
-    // Call the function to start the slideshow
-   changeImages();
-
-    const searchInput = document.getElementById('search');
-    const productContainers = document.querySelectorAll('.product');
-
-   
-
-    function filterProducts() {
-        const searchTerm = searchInput.value.toLowerCase();
-
-       
-    productContainers.forEach(product => {
-        const productName = product.querySelector('h2').textContent.toLowerCase();
-        if (productName.includes(searchTerm)) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-}
-
-const searchButton = document.getElementById('search-button');
-searchButton.addEventListener('click', function () {
-    filterProducts();
-});
-
-</script>
-
-<!----------------- script ends here -------------------->
-
-</body>
+      </div>
+    </section>
+    <footer class="bg-gray-900 text-white py-8">
+      <div class="container mx-auto px-4 text-center">
+        <a
+          href="#"
+          class="text-2xl font-['Pacifico'] text-white mb-4 inline-block"
+          >Improve</a
+        >
+        <p class="text-gray-400">© 2025 Improve. All rights reserved.</p>
+      </div>
+    </footer>
+    <script></script>
+  </body>
 </html>
