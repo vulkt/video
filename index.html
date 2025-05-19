@@ -31,6 +31,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"/>
+  
+  
+ 
+  
+  
+  
   <style>
     :where([class^="ri-"])::before { content: "\f3c2"; }
     body { font-family: 'Poppins', sans-serif; }
@@ -50,6 +56,56 @@
       </button>
     </div>
   </header>
+
+
+ <!-- Firebase SDKs -->
+ <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+  
+    // Your Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDfr6yWL5V3uy5c9IoBhs3qXplnonxwgd0",
+  authDomain: "improve-89825.firebaseapp.com",
+  projectId: "improve-89825",
+  storageBucket: "improve-89825.appspot.com", // ✅ correct
+
+  messagingSenderId: "459905091942",
+  appId: "1:459905091942:web:fe4c0f6a7e4b9b25a020a7",
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+  
+    // Form handling
+    const form = document.getElementById('contactForm');
+    const responseMessage = document.getElementById('responseMessage');
+  
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+  
+      try {
+        await addDoc(collection(db, 'messages'), {
+          name,
+          email,
+          message,
+          createdAt: serverTimestamp()
+        });
+        form.reset();
+        responseMessage.classList.remove('hidden');
+      } catch (err) {
+        console.error('Error submitting message:', err);
+        alert('Failed to send message. Try again.');
+      }
+    });
+  </script>
+
+
 
   <section class="py-12 bg-gradient-to-br from-primary/5 to-secondary/5">
     <div class="container mx-auto px-4">
@@ -119,10 +175,7 @@
               </div>
               <div>
                 <p class="font-medium">Instagram</p>
-                <a
-                  href="https://www.instagram.com/improve.all?igsh=OGMybTk3aHphYnlv"
-                  class="text-primary hover:underline"
-                >@improve.all</a>
+                <a href="https://www.instagram.com/improve.all?igsh=OGMybTk3aHphYnlv" class="text-primary hover:underline">@improve.all</a>
               </div>
             </div>
             <div class="flex items-center gap-4">
@@ -140,52 +193,35 @@
               </div>
               <div>
                 <p class="font-medium">Email</p>
-                <a
-                  href="mailto:improve.service.all@gmail.com"
-                  class="text-primary hover:underline"
-                >improve.service.all@gmail.com</a>
+                <a href="mailto:improve.service.all@gmail.com" class="text-primary hover:underline">improve.service.all@gmail.com</a>
               </div>
             </div>
           </div>
         </div>
         <div class="bg-white p-8 rounded shadow-lg">
-          <form>
+          <form id="contactForm">
             <div class="mb-6">
               <label class="block text-gray-700 mb-2" data-i18n="name_label">Name</label>
-              <input
-                type="text"
-                class="w-full px-4 py-2 border rounded"
-                required
-              />
+              <input type="text" id="name" class="w-full px-4 py-2 border rounded" required />
             </div>
             <div class="mb-6">
               <label class="block text-gray-700 mb-2" data-i18n="email_label">Email</label>
-              <input
-                type="email"
-                class="w-full px-4 py-2 border rounded"
-                required
-              />
+              <input type="email" id="email" class="w-full px-4 py-2 border rounded" required />
             </div>
             <div class="mb-6">
               <label class="block text-gray-700 mb-2" data-i18n="message_label">Message</label>
-              <textarea
-                class="w-full px-4 py-2 border rounded"
-                rows="4"
-                required
-              ></textarea>
+              <textarea id="message" class="w-full px-4 py-2 border rounded" rows="4" required></textarea>
             </div>
-            <button
-              type="submit"
-              class="w-full bg-primary text-white py-2 !rounded-button hover:bg-opacity-90"
-              data-i18n="send_message"
-            >
+            <button type="submit" class="w-full bg-primary text-white py-2 !rounded-button hover:bg-opacity-90" data-i18n="send_message">
               Send Message
             </button>
           </form>
+          <p id="responseMessage" class="text-green-600 mt-4 hidden">Message sent!</p>
         </div>
       </div>
     </div>
   </section>
+  
 
   <footer class="bg-gray-900 text-white py-8">
     <div class="container mx-auto px-4 text-center">
