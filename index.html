@@ -1,300 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Improve - Video Enhancement</title>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { primary: "#8A2BE2", secondary: "#E6E6FA" },
-          borderRadius: {
-            none: "0px",
-            sm: "4px",
-            DEFAULT: "8px",
-            md: "12px",
-            lg: "16px",
-            xl: "20px",
-            "2xl": "24px",
-            "3xl": "32px",
-            full: "9999px",
-            button: "8px",
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For JEJE</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#98FFB3",
+              secondary: "#FFE5E5",
+              mint: {
+                50: "#f2fff5",
+                100: "#e6ffeb",
+                200: "#c8ffd6",
+                300: "#98FFB3",
+                400: "#47f97c",
+                500: "#24dd59",
+                600: "#13b83f",
+                700: "#138a34",
+                800: "#166d2f",
+                900: "#145a29",
+              },
+            },
+            borderRadius: {
+              button: "8px",
+            },
+          },
+          fontFamily: {
+            montserrat: ["Montserrat", "sans-serif"],
           },
         },
-      },
-    };
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"/>
-  
-  
- 
-  
-  
-  
-  <style>
-    :where([class^="ri-"])::before { content: "\f3c2"; }
-    body { font-family: 'Poppins', sans-serif; }
-    input:focus { outline: none; border-color: #8A2BE2; }
-  </style>
-</head>
-<body class="bg-white min-h-screen">
-  <header class="w-full bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#" class="text-3xl font-['Pacifico'] text-primary">Improve</a>
-      <button
-        id="langSwitch"
-        class="px-4 py-2 !rounded-button border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all"
-      >
-        <span class="en">中文</span>
-        <span class="zh hidden">English</span>
-      </button>
-    </div>
-  </header>
+      };
+    </script>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script>
+          const firebaseConfig = {
+            apiKey: "AIzaSyDnnHjkUGjHMyCqI5MQspJHR-eJbKwvR00",
+            authDomain: "past-jordan.firebaseapp.com",
+            projectId: "past-jordan",
+            storageBucket: "past-jordan.appspot.com",
+            messagingSenderId: "541138565069",
+            appId: "1:541138565069:web:e1c0971d58149b98c0f684"
+        };
+      firebase.initializeApp(firebaseConfig);
+      const storage = firebase.storage();
+    </script>
 
- <!-- Firebase SDKs -->
- <script type="module">
-    // Firebase imports
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-  
-    // Your Firebase config
-    const firebaseConfig = {
-        apiKey: "AIzaSyDfr6yWL5V3uy5c9IoBhs3qXplnonxwgd0",
-  authDomain: "improve-89825.firebaseapp.com",
-  projectId: "improve-89825",
-  storageBucket: "improve-89825.appspot.com", // ✅ correct
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(135deg, #ffffff 0%, #f2fff5 100%);
+        min-height: 100vh;
+      }
+      .floating-heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: rgba(152, 255, 179, 0.6);
+        opacity: 0;
+        animation: float-up 4s ease-in-out forwards;
+      }
+      @keyframes float-up {
+        0% {
+          transform: translateY(0) scale(0);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-100px) scale(1);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-montserrat text-gray-800">
+    <div class="floating-hearts" id="floatingHeartsContainer"></div>
 
-  messagingSenderId: "459905091942",
-  appId: "1:459905091942:web:fe4c0f6a7e4b9b25a020a7",
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-  
-    // Form handling
-    const form = document.getElementById('contactForm');
-    const responseMessage = document.getElementById('responseMessage');
-  
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-  
-      try {
-        await addDoc(collection(db, 'messages'), {
-          name,
-          email,
-          message,
-          createdAt: serverTimestamp()
+    <header class="w-full py-4 px-6 border-b border-primary/30 shadow-sm bg-white/80 backdrop-blur-sm">
+      <div class="container mx-auto flex justify-center items-center">
+        <div class="text-4xl font-['Pacifico'] text-primary tracking-wider">JEJE</div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+      <section class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4 text-gray-800">For My Dearest JEJE</h1>
+      </section>
+
+      <section class="mb-16">
+        <div class="max-w-4xl mx-auto">
+          <div class="max-w-xl mx-auto">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+              <h3 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Drop Your Love Here</h3>
+              <div
+                id="drop-zone"
+                class="min-h-[400px] rounded-lg border-2 border-dashed border-primary/30 flex items-center justify-center bg-mint-50/30"
+              >
+                <div class="text-center text-gray-500">
+                  <i class="ri-heart-line text-4xl mb-3 text-primary"></i>
+                  <p class="text-lg">Drop your files here</p>
+                </div>
+              </div>
+              <div id="upload-status" class="mt-4 space-y-2 text-sm text-center"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-white border-t border-primary/20 py-8">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-xl font-['Pacifico'] text-primary mb-4 md:mb-0">JEJE</div>
+          <div class="flex items-center space-x-2 mb-4 md:mb-0">
+            <span class="text-gray-500 text-sm">Made with</span>
+            <span class="text-primary text-xl">❤</span>
+            <span class="text-gray-500 text-sm">for you</span>
+          </div>
+          <div class="text-sm text-gray-500">
+            <p>June 18, 2025 | Forever Yours</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const dropZone = document.getElementById("drop-zone");
+        const statusBox = document.getElementById("upload-status");
+
+        dropZone.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          dropZone.classList.add("bg-primary/10");
         });
-        form.reset();
-        responseMessage.classList.remove('hidden');
-      } catch (err) {
-        console.error('Error submitting message:', err);
-        alert('Failed to send message. Try again.');
-      }
-    });
-  </script>
 
+        dropZone.addEventListener("dragleave", () => {
+          dropZone.classList.remove("bg-primary/10");
+        });
 
+        dropZone.addEventListener("drop", (e) => {
+          e.preventDefault();
+          dropZone.classList.remove("bg-primary/10");
+          const files = e.dataTransfer.files;
+          if (!files.length) return;
 
-  <section class="py-12 bg-gradient-to-br from-primary/5 to-secondary/5">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6" data-i18n="hero_title">
-            Enhance Your Videos with Professional VoiceOver
-          </h1>
-          <p class="text-xl text-gray-600 mb-8" data-i18n="hero_subtitle">
-            Transform your product videos with professional voiceovers and boost engagement.
-          </p>
-          <a
-            href="#contact"
-            class="bg-primary text-white px-8 py-3 !rounded-button whitespace-nowrap hover:bg-opacity-90 inline-block"
-            data-i18n="get_started"
-          >Get Started</a>
-        </div>
-        <div class="relative w-full rounded-lg overflow-hidden shadow-xl aspect-video bg-gray-100">
-          <video
-            src="assets/sample.mp4"
-            controls
-            class="w-full h-full object-cover rounded-lg"
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-    </div>
-  </section>
+          statusBox.innerHTML = "";
 
-  <section id="services" class="py-20">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12" data-i18n="services_title">Our Services</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 rounded shadow-lg">
-          <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
-            <i class="ri-mic-line ri-xl text-primary"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-4" data-i18n="voiceover_title">Professional VoiceOver</h3>
-          <p class="text-gray-600" data-i18n="voiceover_desc">
-            Add professional voiceovers to your videos in multiple languages.
-          </p>
-        </div>
-        <div class="bg-white p-8 rounded shadow-lg">
-          <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
-            <i class="ri-movie-line ri-xl text-primary"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-4" data-i18n="video_enhancement_title">Video Enhancement</h3>
-          <p class="text-gray-600" data-i18n="video_enhancement_desc">
-            Improve video quality with professional editing and effects.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+          Array.from(files).forEach((file) => {
+            const msg = document.createElement("div");
+            msg.textContent = `Uploading ${file.name}...`;
+            statusBox.appendChild(msg);
 
-  <section id="contact" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12" data-i18n="contact_title">Contact Us</h2>
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-white p-8 rounded shadow-lg">
-          <h3 class="text-xl font-bold mb-6" data-i18n="contact_info">Contact Information</h3>
-          <div class="space-y-6">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
-                <i class="ri-instagram-line text-primary"></i>
-              </div>
-              <div>
-                <p class="font-medium">Instagram</p>
-                <a href="https://www.instagram.com/improve.all?igsh=OGMybTk3aHphYnlv" class="text-primary hover:underline">@improve.all</a>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
-                <i class="ri-wechat-fill text-primary"></i>
-              </div>
-              <div>
-                <p class="font-medium">WeChat</p>
-                <p class="text-gray-600">improve_all</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
-                <i class="ri-mail-line text-primary"></i>
-              </div>
-              <div>
-                <p class="font-medium">Email</p>
-                <a href="mailto:improve.service.all@gmail.com" class="text-primary hover:underline">improve.service.all@gmail.com</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white p-8 rounded shadow-lg">
-          <form id="contactForm">
-            <div class="mb-6">
-              <label class="block text-gray-700 mb-2" data-i18n="name_label">Name</label>
-              <input type="text" id="name" class="w-full px-4 py-2 border rounded" required />
-            </div>
-            <div class="mb-6">
-              <label class="block text-gray-700 mb-2" data-i18n="email_label">Email</label>
-              <input type="email" id="email" class="w-full px-4 py-2 border rounded" required />
-            </div>
-            <div class="mb-6">
-              <label class="block text-gray-700 mb-2" data-i18n="message_label">Message</label>
-              <textarea id="message" class="w-full px-4 py-2 border rounded" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="w-full bg-primary text-white py-2 !rounded-button hover:bg-opacity-90" data-i18n="send_message">
-              Send Message
-            </button>
-          </form>
-          <p id="responseMessage" class="text-green-600 mt-4 hidden">Message sent!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
+            const storageRef = storage.ref(`uploads/${file.name}`);
+            const uploadTask = storageRef.put(file);
 
-  <footer class="bg-gray-900 text-white py-8">
-    <div class="container mx-auto px-4 text-center">
-      <a
-        href="#"
-        class="text-2xl font-['Pacifico'] text-white mb-4 inline-block"
-      >Improve</a>
-      <p class="text-gray-400" data-i18n="footer_copyright">
-        © 2025 Improve. All rights reserved.
-      </p>
-    </div>
-  </footer>
+            uploadTask.on(
+              "state_changed",
+              null,
+              (error) => {
+                msg.textContent = `❌ Failed: ${error.message}`;
+                msg.classList.add("text-red-500");
+              },
+              () => {
+                uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+                  msg.innerHTML = `✅ Uploaded: <a href="${url}" target="_blank" class="text-blue-600 underline">${file.name}</a>`;
+                  msg.classList.add("text-green-600");
+                  createFloatingHeart(e.clientX, e.clientY);
+                });
+              }
+            );
+          });
+        });
 
-  <script>
-    const translations = {
-      en: {
-        hero_title: "Enhance Your Videos with Professional VoiceOver",
-        hero_subtitle: "Transform your product videos with professional voiceovers and boost engagement.",
-        get_started: "Get Started",
-        services_title: "Our Services",
-        voiceover_title: "Professional VoiceOver",
-        voiceover_desc: "Add professional voiceovers to your videos in multiple languages.",
-        video_enhancement_title: "Video Enhancement",
-        video_enhancement_desc: "Improve video quality with professional editing and effects.",
-        contact_title: "Contact Us",
-        contact_info: "Contact Information",
-        name_label: "Name",
-        email_label: "Email",
-        message_label: "Message",
-        send_message: "Send Message",
-        footer_copyright: "© 2025 Improve. All rights reserved.",
-      },
-      zh: {
-        hero_title: "通过专业配音提升您的视频",
-        hero_subtitle: "使用专业配音提升产品视频效果并提高互动率。",
-        get_started: "开始使用",
-        services_title: "我们的服务",
-        voiceover_title: "专业配音",
-        voiceover_desc: "为您的视频添加多语言的专业配音。",
-        video_enhancement_title: "视频增强",
-        video_enhancement_desc: "通过专业编辑和特效提升视频质量。",
-        contact_title: "联系我们",
-        contact_info: "联系信息",
-        name_label: "姓名",
-        email_label: "电子邮件",
-        message_label: "留言",
-        send_message: "发送信息",
-        footer_copyright: "© 2025 Improve 版权所有。",
-      }
-    };
-  
-    let currentLang = 'en';
-  
-    function setLanguage(lang) {
-      currentLang = lang;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          el.textContent = translations[lang][key];
+        function createFloatingHeart(x, y) {
+          const heart = document.createElement("div");
+          heart.className = "floating-heart";
+          heart.style.left = `${x}px`;
+          heart.style.top = `${y}px`;
+          heart.innerHTML = "❤";
+          document.getElementById("floatingHeartsContainer").appendChild(heart);
+          setTimeout(() => heart.remove(), 4000);
         }
       });
-  
-      // Toggle button label
-      document.querySelector('#langSwitch .en').classList.toggle('hidden', lang === 'en');
-      document.querySelector('#langSwitch .zh').classList.toggle('hidden', lang === 'zh');
-    }
-  
-    document.getElementById('langSwitch').addEventListener('click', () => {
-      setLanguage(currentLang === 'en' ? 'zh' : 'en');
-    });
-  
-    // Optional: Set default language on page load
-    setLanguage('zh');
-
-  </script>
-  
+    </script>
+  </body>
+</html>
