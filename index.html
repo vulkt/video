@@ -2,199 +2,286 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For JEJE</title>
-
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jeje Chat</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
+
+    <!-- Firebase SDKs for browser -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <!-- Tailwind Config -->
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              primary: "#98FFB3",
-              secondary: "#FFE5E5",
-              mint: {
-                50: "#f2fff5",
-                100: "#e6ffeb",
-                200: "#c8ffd6",
-                300: "#98FFB3",
-                400: "#47f97c",
-                500: "#24dd59",
-                600: "#13b83f",
-                700: "#138a34",
-                800: "#166d2f",
-                900: "#145a29",
-              },
+              primary: "#4CAF50",
+              secondary: "#81C784",
             },
             borderRadius: {
               button: "8px",
             },
           },
-          fontFamily: {
-            montserrat: ["Montserrat", "sans-serif"],
-          },
         },
       };
     </script>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-    <script>
-          const firebaseConfig = {
-            apiKey: "AIzaSyDnnHjkUGjHMyCqI5MQspJHR-eJbKwvR00",
-            authDomain: "past-jordan.firebaseapp.com",
-            projectId: "past-jordan",
-            storageBucket: "past-jordan.appspot.com",
-            messagingSenderId: "541138565069",
-            appId: "1:541138565069:web:e1c0971d58149b98c0f684"
-        };
-      firebase.initializeApp(firebaseConfig);
-      const storage = firebase.storage();
-    </script>
-
     <style>
-      body {
-        font-family: 'Montserrat', sans-serif;
-        background: linear-gradient(135deg, #ffffff 0%, #f2fff5 100%);
-        min-height: 100vh;
-      }
-      .floating-heart {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background-color: rgba(152, 255, 179, 0.6);
-        opacity: 0;
-        animation: float-up 4s ease-in-out forwards;
-      }
-      @keyframes float-up {
-        0% {
-          transform: translateY(0) scale(0);
-          opacity: 0.7;
-        }
-        100% {
-          transform: translateY(-100px) scale(1);
-          opacity: 0;
-        }
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
       }
     </style>
   </head>
-  <body class="font-montserrat text-gray-800">
-    <div class="floating-hearts" id="floatingHeartsContainer"></div>
 
-    <header class="w-full py-4 px-6 border-b border-primary/30 shadow-sm bg-white/80 backdrop-blur-sm">
-      <div class="container mx-auto flex justify-center items-center">
-        <div class="text-4xl font-['Pacifico'] text-primary tracking-wider">JEJE</div>
+  <body class="bg-gray-50 h-screen flex flex-col">
+    <!-- HEADER -->
+    <header class="bg-white shadow-sm border-b border-gray-100 px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="font-['Pacifico'] text-2xl text-primary">Jeje</div>
+        <div class="flex items-center gap-3">
+          <button
+            class="bank-btn bg-primary text-white px-4 py-2 rounded-button hover:bg-green-600 shadow-sm"
+            data-bank="FAB"
+          >
+            FAB
+          </button>
+          <button
+            class="bank-btn bg-primary text-white px-4 py-2 rounded-button hover:bg-green-600 shadow-sm"
+            data-bank="SNB"
+          >
+            SNB
+          </button>
+          <button
+            class="bank-btn bg-primary text-white px-4 py-2 rounded-button hover:bg-green-600 shadow-sm"
+            data-bank="Bank of America"
+          >
+            Bank of America
+          </button>
+          <button
+            class="bank-btn bg-primary text-white px-4 py-2 rounded-button hover:bg-green-600 shadow-sm"
+            data-bank="ICBC"
+          >
+            ICBC
+          </button>
+        </div>
       </div>
     </header>
 
-    <main class="container mx-auto px-4 py-12">
-      <section class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-semibold mb-4 text-gray-800">For My Dearest JEJE</h1>
-      </section>
+    <!-- MAIN CHAT SECTION -->
+    <main class="flex-1 flex flex-col bg-white">
+      <div class="flex-1 overflow-y-auto px-6 py-6" id="chatContainer">
+        <div class="max-w-4xl mx-auto space-y-4" id="messagesContainer"></div>
+      </div>
 
-      <section class="mb-16">
+      <div class="border-t border-gray-100 bg-white px-6 py-4">
         <div class="max-w-4xl mx-auto">
-          <div class="max-w-xl mx-auto">
-            <div class="bg-white p-8 rounded-xl shadow-md">
-              <h3 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Drop Your Love Here</h3>
-              <div
-                id="drop-zone"
-                class="min-h-[400px] rounded-lg border-2 border-dashed border-primary/30 flex items-center justify-center bg-mint-50/30"
-              >
-                <div class="text-center text-gray-500">
-                  <i class="ri-heart-line text-4xl mb-3 text-primary"></i>
-                  <p class="text-lg">Drop your files here</p>
-                </div>
-              </div>
-              <div id="upload-status" class="mt-4 space-y-2 text-sm text-center"></div>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 relative">
+              <input
+                type="text"
+                placeholder="Message Tex..."
+                class="w-full px-4 py-3 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                id="messageInput"
+              />
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="bg-white border-t border-primary/20 py-8">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="text-xl font-['Pacifico'] text-primary mb-4 md:mb-0">JEJE</div>
-          <div class="flex items-center space-x-2 mb-4 md:mb-0">
-            <span class="text-gray-500 text-sm">Made with</span>
-            <span class="text-primary text-xl">❤</span>
-            <span class="text-gray-500 text-sm">for you</span>
-          </div>
-          <div class="text-sm text-gray-500">
-            <p>June 18, 2025 | Forever Yours</p>
+            <button
+              class="bg-primary text-white p-3 rounded-button hover:bg-green-600 w-12 h-12 flex items-center justify-center"
+              id="sendButton"
+            >
+              <i class="ri-send-plane-line ri-lg"></i>
+            </button>
           </div>
         </div>
       </div>
-    </footer>
+    </main>
 
+    <!-- CHAT LOGIC + FIREBASE -->
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const dropZone = document.getElementById("drop-zone");
-        const statusBox = document.getElementById("upload-status");
+      // Replace with your real Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyDP4vpEv...",
+        authDomain: "starzone-a52fe.firebaseapp.com",
+        projectId: "starzone-a52fe",
+        storageBucket: "starzone-a52fe.appspot.com",
+        messagingSenderId: "148135330855",
+        appId: "1:148135330855:web:0921a8b...",
+        measurementId: "G-23TC6CH8BE",
+      };
 
-        dropZone.addEventListener("dragover", (e) => {
-          e.preventDefault();
-          dropZone.classList.add("bg-primary/10");
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      let selectedBank = null;
+
+      function clearChatUI() {
+        document.getElementById("messagesContainer").innerHTML = "";
+      }
+
+      function addMessage(text, isJeje = true) {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
         });
+        const container = document.getElementById("messagesContainer");
 
-        dropZone.addEventListener("dragleave", () => {
-          dropZone.classList.remove("bg-primary/10");
-        });
+        const messageHTML = `
+          <div class="flex ${isJeje ? "justify-end" : "justify-start"}">
+            <div class="max-w-xs lg:max-w-md">
+              <div class="${
+                isJeje
+                  ? "bg-primary text-white"
+                  : "bg-white border-2 border-primary text-gray-800"
+              } rounded-2xl px-4 py-3 shadow-sm">
+              <p class="whitespace-pre-line leading-relaxed">${text}</p>
 
-        dropZone.addEventListener("drop", (e) => {
-          e.preventDefault();
-          dropZone.classList.remove("bg-primary/10");
-          const files = e.dataTransfer.files;
-          if (!files.length) return;
+              </div>
+              <div class="text-xs text-gray-500 mt-1 ${
+                isJeje ? "text-right mr-2" : "ml-2"
+              }">${isJeje ? "You" : "Tex"} • ${timeString}</div>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML("beforeend", messageHTML);
+        container.scrollTop = container.scrollHeight;
+      }
 
-          statusBox.innerHTML = "";
+      async function getNextPromptDocName() {
+  const promptsSnapshot = await db.collection("prompts").get();
+  let maxNum = 0;
+  promptsSnapshot.forEach(doc => {
+    const match = doc.id.match(/^prompt(\d+)$/);
+    if (match) {
+      const num = parseInt(match[1], 10);
+      if (num > maxNum) maxNum = num;
+    }
+  });
 
-          Array.from(files).forEach((file) => {
-            const msg = document.createElement("div");
-            msg.textContent = `Uploading ${file.name}...`;
-            statusBox.appendChild(msg);
+  // Save maxNum persistently in localStorage to prevent reuse
+  const localMax = parseInt(localStorage.getItem("lastPromptNum") || "0", 10);
+  const nextNum = Math.max(maxNum, localMax) + 1;
 
-            const storageRef = storage.ref(`uploads/${file.name}`);
-            const uploadTask = storageRef.put(file);
+  localStorage.setItem("lastPromptNum", nextNum.toString());
+  return `prompt${nextNum}`;
+}
 
-            uploadTask.on(
-              "state_changed",
-              null,
-              (error) => {
-                msg.textContent = `❌ Failed: ${error.message}`;
-                msg.classList.add("text-red-500");
-              },
-              () => {
-                uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-                  msg.innerHTML = `✅ Uploaded: <a href="${url}" target="_blank" class="text-blue-600 underline">${file.name}</a>`;
-                  msg.classList.add("text-green-600");
-                  createFloatingHeart(e.clientX, e.clientY);
-                });
-              }
-            );
-          });
-        });
+      // Wait for Tex's reply with exchange_* field after promptTimestamp
+      async function waitForTexResponseAfter(promptTimestamp) {
+        const chatDocRef = db.collection("chat").doc("chat1");
+        while (true) {
+          const docSnap = await chatDocRef.get();
+          if (!docSnap.exists) {
+            await new Promise((r) => setTimeout(r, 1000));
+            continue;
+          }
+          const data = docSnap.data();
+          if (!data) {
+            await new Promise((r) => setTimeout(r, 1000));
+            continue;
+          }
+          // Filter keys starting with exchange_
+          const exchangeFields = Object.entries(data)
+            .filter(([key, val]) => key.startsWith("exchange_"))
+            .map(([key, val]) => {
+              const tsStr = key.slice("exchange_".length);
+              const tsDate = new Date(tsStr);
+              return { key, val, tsDate };
+            })
+            .filter(({ tsDate }) => tsDate > promptTimestamp) // only after prompt timestamp
+            .sort((a, b) => a.tsDate - b.tsDate); // earliest first
 
-        function createFloatingHeart(x, y) {
-          const heart = document.createElement("div");
-          heart.className = "floating-heart";
-          heart.style.left = `${x}px`;
-          heart.style.top = `${y}px`;
-          heart.innerHTML = "❤";
-          document.getElementById("floatingHeartsContainer").appendChild(heart);
-          setTimeout(() => heart.remove(), 4000);
+          if (exchangeFields.length > 0) {
+            // Pick earliest valid exchange field
+            const earliest = exchangeFields[0];
+
+            // Delete the exchange field
+            const updateObj = {};
+            updateObj[earliest.key] = firebase.firestore.FieldValue.delete();
+            await chatDocRef.update(updateObj);
+
+            return earliest.val;
+          }
+          await new Promise((r) => setTimeout(r, 1000)); // wait 1 sec before retry
         }
+      }
+
+      async function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const text = input.value.trim();
+        if (!text || !selectedBank) return;
+
+        addMessage(text, true);
+        input.value = "";
+
+        // 1. Save Jeje's message in prompts collection as promptX doc
+        const promptDocName = await getNextPromptDocName();
+        const promptDocRef = db.collection("prompts").doc(promptDocName);
+
+        // Use Firestore Timestamp object for precise comparison later
+        const promptTimestamp = new Date();
+
+        await promptDocRef.set({
+          prompt: text,
+          timestamp: firebase.firestore.Timestamp.fromDate(promptTimestamp),
+        });
+
+        // 2. Wait for Tex to respond by adding 'exchange_' field in chat/chat1 doc with timestamp > promptTimestamp
+        const texReply = await waitForTexResponseAfter(promptTimestamp);
+
+        // 3. Delete Jeje's prompt doc after Tex replies
+        await promptDocRef.delete();
+
+        // 4. Show Tex reply in UI
+        addMessage(texReply, false);
+      }
+
+      async function selectBank(bankName) {
+        selectedBank = bankName;
+        clearChatUI();
+
+        const banksDocRef = db.collection("banks").doc("banks");
+        const docSnap = await banksDocRef.get();
+
+        if (!docSnap.exists) {
+          await banksDocRef.set({
+            FAB: false,
+            SNB: false,
+            "Bank of America": false,
+            ICBC: false,
+          });
+        }
+
+        const updateData = {
+          FAB: false,
+          SNB: false,
+          "Bank of America": false,
+          ICBC: false,
+        };
+        updateData[bankName] = true;
+
+        await banksDocRef.update(updateData);
+
+        addMessage(`📌 Bank switched to ${bankName}`, false);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".bank-btn").forEach((btn) => {
+          btn.addEventListener("click", () => selectBank(btn.dataset.bank));
+        });
+
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+        document.getElementById("messageInput").addEventListener("keypress", (e) => {
+          if (e.key === "Enter") sendMessage();
+        });
       });
     </script>
   </body>
